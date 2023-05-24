@@ -1,0 +1,94 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing:border-box;
+}
+
+html{
+  font-size: 62,5%;
+}
+
+body{
+  position: relative;
+  margin-bottom:0;
+  min-width: min-content;
+  min-height: 100vh;
+  background-color: #F0E9E9;
+}
+
+.breakline{
+  display: grid;
+}
+
+.breakline:nth-child(2), .breakline:nth-child(3){
+  margin-top: 1.5rem;
+
+}
+
+.topSapce{
+  margin-top: 1rem;
+}
+
+.center{
+  display: grid;
+  place-content: center;
+}
+
+.displayLogin{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 136rem;
+  height: 100vh;
+  gap: 0;
+}
+
+.loginContainer{
+  display: grid;
+  place-content: center;
+  min-width:calc(30rem + 2rem);
+  width: 50%;
+  padding-block: 3rem;
+  background-color: rgb(182, 182, 182);
+  border: solid;
+  box-shadow: rgb(0, 0, 0) 0rem 1rem 4rem;
+}
+
+.bardisplay{
+  min-width: 30rem;
+  width: 80%;
+  max-width: max-content;
+  height: 3rem;
+  background-color: #AA7070 ;
+  border: solid #AA7070;
+}
+
+.bardisplay::placeholder{
+  text-align: center;
+  color: #F0E9E9;
+}
+
+.bardisplay:focus::placeholder {
+  opacity: 0;
+}
+
+.enviar{
+  width: 20rem;
+  height:2rem;
+}
+
+.registrar{
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: rgb(0, 0, 59);
+}
+
+
+.errocadastro{
+
+  margin-top: -120px;
+  color:red;
+  font-size:1.6rem;
+}
