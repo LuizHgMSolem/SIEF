@@ -7,9 +7,11 @@
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE
+= "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone
+= "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,36 +23,118 @@ SET time_zone = "+00:00";
 -- Banco de dados: `sief`
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `ano`
---
-
-CREATE TABLE `ano` (
-  `id` int(255) NOT NULL,
-  `Ano` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `chamada`
+-- Estrutura da tabela `Matricula`
 --
 
-CREATE TABLE `chamada` (
-  `id` int(255) NOT NULL,
-  `Status` int(2) NOT NULL
+CREATE TABLE `Matricula`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Nome` varchar/*  */
+(100) NOT NULL,
+  `CPF` varchar
+(12) NOT NULL,
+  `RG` varchar
+(9) NOT NULL,
+  `Data_nascimento` date NOT NULL,
+  `Cidade` VARCHAR
+(100),
+  `Bairro` VARCHAR
+(100),
+  `Rua` VARCHAR
+(100),
+  `Numero` VARCHAR
+(10),
+  `Celular` INT
+(11),
+  `E-Mail`VARCHAR
+(100),
+  `Tipo` int
+(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `
+Matricula`
+VALUES
+  (1, 'Luiz Henrique Gomes Mendes', '49410706823', '59578269', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique Gomes Mendes', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE `Usuario`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Nome` varchar
+(100) NOT NULL,
+  `Senha` varchar
+(255) NOT NULL,
+  `FK_Matricula` INT,
+  FOREIGN KEY
+(`FK_Matricula`) REFERENCES `Matricula`
+(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `chamada`
+-- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `chamada` (`id`, `Status`) VALUES
-(1, 1);
+
+INSERT INTO `
+Usuario`
+VALUES
+  (1, 'Luiz Henrique Gomes Mendes', '789621543');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `Administrador`
+--
+
+CREATE TABLE `Admin`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `FK_Usuario` INT,
+  FOREIGN KEY
+(`FK_Usuario`) REFERENCES `usuario`
+(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `Admin` (`
+id`,
+`Nome_turma
+`,`ano`) VALUES
+(1,1);
+
+-
+--------------------------------------------------------=
+--
+-- Estrutura da tabela `turma`
+--
+
+CREATE TABLE `Turma`
+(
+  `id` INT
+(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Nome_turma` varchar
+(100) NOT NULL,
+  `Ano` DATE NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `turma`
+--
+
+INSERT INTO `Turma` (`
+id`,
+`Nome_turma
+`,`ano`) VALUES
+(1, '3B',2023-01-01);
+
 
 -- --------------------------------------------------------
 
@@ -58,117 +142,129 @@ INSERT INTO `chamada` (`id`, `Status`) VALUES
 -- Estrutura da tabela `diciplina`
 --
 
-CREATE TABLE `diciplina` (
-  `id` int(255) NOT NULL,
-  `Nome_Diciplina` varchar(30) NOT NULL
+CREATE TABLE `Diciplina`
+(
+  `id` INT
+(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Nome_Diciplina` varchar
+(30) NOT NULL,
+  `FK_Turma` INT,
+  FOREIGN KEY
+(`FK_Turma`) REFERENCES `Turma`
+(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `diciplina`
 --
 
-INSERT INTO `diciplina` (`id`, `Nome_Diciplina`) VALUES
-(1, 'Matematica');
+INSERT INTO `Diciplina` (`
+id`,
+`Nome_Diciplina
+`, `Fk_Turma`) VALUES
+(1, "Matematica", 1);
+
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `turma`
+-- Estrutura da tabela `Avaliação`
 --
 
-CREATE TABLE `turma` (
-  `id` int(255) NOT NULL,
-  `Nome_turma` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Avaliacao`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Notas` DECIMAL
+(2,2),
+  `FK_Diciplina` INT,
+  `FK_Turma` INT,
+  FOREIGN KEY
+(`FK_Diciplina`) REFERENCES `diciplina`
+(`id`),
+  FOREIGN KEY
+(`FK_Turma`) REFERENCES `Turma`
+(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `
+Avaliacao`
+VALUES
+  (1, 10, 1, 1);
+-- --------------------------------------------------------
 
 --
--- Extraindo dados da tabela `turma`
+-- Estrutura da tabela `Professor`
 --
 
-INSERT INTO `turma` (`id`, `Nome_turma`) VALUES
-(1, '3B');
+CREATE TABLE `Porfessor`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `FK_Usuario` INT,
+  FOREIGN KEY
+(`FK_Usuario`) REFERENCES `usuario`
+(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Estrutura da tabela `Aluno`
 --
 
-CREATE TABLE `usuario` (
-  `id` int(255) NOT NULL,
-  `CPF` varchar(12) NOT NULL,
-  `RG` varchar(9) NOT NULL,
-  `Senha` varchar(255) NOT NULL,
-  `Data_nascimento` date NOT NULL,
-  `Nome` varchar(100) NOT NULL,
-  `Tipo` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Aluno`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Status` VARCHAR
+(11) NOT NULL,
+  `FK_Usuario` INT,
+  `FK_Avaliacao` INT,
+  `FK_Diciplina` INT,
+  FOREIGN KEY
+(`FK_Usuario`) REFERENCES `usuario`
+(`id`),
+  FOREIGN KEY
+(`FK_Avaliacao`) REFERENCES `Avaliacao`
+(`id`),
+  FOREIGN KEY
+(`FK_Diciplina`) REFERENCES `Diciplina`
+(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `
+Aluno`
+VALUES
+  (1, "Aprovado", 2, 1, 1);
+
 
 --
--- Extraindo dados da tabela `usuario`
+-- Estrutura da tabela `Calendario_aula`
 --
 
-INSERT INTO `usuario` (`id`, `CPF`, `RG`, `Senha`, `Data_nascimento`, `Nome`, `Tipo`) VALUES
-(1, '49410706823', '59578269', '789621453', '2003-04-09', 'Luiz Henrique Gomes Mendes', 1),
-(2, '44032771871', '399816410', '789621453', '2003-11-14', 'Bruno Sérgio Soares De Jesus', 2);
+CREATE TABLE `Calendario_aula`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Data` DATETIME NOT NULL,
+  `Nome_aula` VARCHAR
+(25) NOT NULL,
+  `Chamada` Boolean NOT NULL,
+  `FK_Aluno` INT,
+  `FK_Diciplina` INT,
+  FOREIGN KEY
+(`FK_Diciplina`) REFERENCES `Diciplina`
+(`id`),
+  FOREIGN KEY
+(`FK_Aluno`) REFERENCES `Aluno`
+(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Índices para tabelas despejadas
---
+INSERT INTO `Calendario_aula`(`
+id`,`Data
+`,`Nome_aula`, `Chamada`, `FK_Aluno`, FK_Diciplina) VALUES
+(1, 2023-06-07,"Aula Experimental", 1, 1, 1);
 
---
--- Índices para tabela `ano`
---
-ALTER TABLE `ano`
-  ADD PRIMARY KEY (`id`);
 
---
--- Índices para tabela `chamada`
---
-ALTER TABLE `chamada`
-  ADD PRIMARY KEY (`id`);
+-----------------------------------------------------------
+----------------SELECIONANDO USUARIO-------------
 
---
--- Índices para tabela `diciplina`
---
-ALTER TABLE `diciplina`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `turma`
---
-ALTER TABLE `turma`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `ano`
---
-ALTER TABLE `ano`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `chamada`
---
-ALTER TABLE `chamada`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `diciplina`
---
-ALTER TABLE `diciplina`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `turma`
---
-ALTER TABLE `turma`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SELECT Admin.id , Usuario.*
+FROM Admin INNER JOIN Usuario ON Admin.id = usuario.id;
