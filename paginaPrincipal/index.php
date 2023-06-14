@@ -12,7 +12,7 @@ $inputInfo = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if (isset($inputInfo['Logout'])) {
   setcookie("emailValido", "Encerrado", time() - 3600, "/json-LoginValid/validacao");
   setcookie("senhaValida", "Encerrado", time() - 3600,"/json-LoginValid/validacao");
-  header("Location: ../../login.php");
+  header("Location: ../login.php");
   exit();
 }
 ?>
