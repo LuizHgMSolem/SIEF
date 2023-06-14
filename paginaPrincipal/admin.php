@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $msg="";
 // Função Validar Reginstro
 function ValidarRegistro(){
   // Validação do Registro.
@@ -76,7 +77,7 @@ ValidarRegistro();
                 </div>
                 <div class="input-items">
                   <label for="nome">Endereço</label>
-                  <input type="text" id="Endereço" class="txtEndereço " name="Endereço ">
+                  <input type="text" id="Endereço" class="txtEndereço " name="Endereco">
                 </div>
 
                 <div class="input-items">
@@ -91,11 +92,19 @@ ValidarRegistro();
                   <label for="E-Mail">E-Mail</label>
                   <input type="text" id="E-Mail" class="txtE-Mail " name="E-Mail">
                 </div>
+                <div class="input-items">
+                  <label for="E-Mail">Tipo</label>
+                  <select name="Tipo" id="Usuario">
+                  <option value="1">Administrador</option>
+                  <option value="2">Professor</option>
+                  <option value="3">Aluno</option>
+                  </select>
+                </div>
 
               </div>
               <div class="button">
                 <input type="submit" class="btn btn-primary matricular" value="Matricular" name="Matrricula">
-                <input type="reset" class="btn btn-secondary desmarcar" value="desmarcar" name="desmarcar">
+                <input type="reset" class="btn btn-secondary desmarcar"  name="desmarcar">
               </div>
             </form>
           </div>
@@ -107,10 +116,31 @@ ValidarRegistro();
 </html>
 
 <?php
+  include_once('../validacao/conexao.php');
+
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-
-
-
-
+  var_dump($dadosMatricula);
+  // error_reporting(0);
+  if(empty($dadosMatricula)){
+      $msg = "Por favor preencha todos os items";
+      echo "<h3>".$msg."</h3>";
+  }else {
+  }
+  
+  $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
+  $IstMaticula = $conn -> prepare($SQLMatricula);
+  $IstMaticula -> bindParam(":Nome",$dadosMatricula['Nome']);
+  $IstMaticula -> bindParam(":Sexo",$dadosMatricula['Sexo']);
+  $IstMaticula -> bindParam(":DataNCT",$dadosMatricula['DataNCT']);
+  $IstMaticula -> bindParam(":RG",$dadosMatricula['RG']);
+  $IstMaticula -> bindParam(":CPF",$dadosMatricula['CPF']);
+  $IstMaticula -> bindParam(":Cidade",$dadosMatricula['Cidade']);
+  $IstMaticula -> bindParam(":Bairro",$dadosMatricula['Bairro']);
+  $IstMaticula -> bindParam(":Endereco",$dadosMatricula['Endereco']);
+  $IstMaticula -> bindParam(":Numero",$dadosMatricula['Numero']);
+  $IstMaticula -> bindParam(":Celular",$dadosMatricula['Celular']);
+  $IstMaticula -> bindParam(":Email",$dadosMatricula['E-mail']);
+  $IstMaticula -> bindParam(":Tipo",$dadosMatricula['Tipo']);
+  $IstMaticula -> execute();
 ?>
+

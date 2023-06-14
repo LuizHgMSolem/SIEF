@@ -23,7 +23,11 @@ ul {
   list-style: none;
 }
 
-
+h3{
+  justify-self: center;
+  align-self: end;
+  grid-area:  1/2 ;
+}
 
 body {
   background: #faf6ed;
@@ -42,6 +46,7 @@ header{
   display: grid;
   place-items: center;
   background-color: rgb(51, 51, 71);
+  grid-area: 1/1;
 }
 
 nav{
@@ -103,7 +108,9 @@ main{
   font-size: 4rem;
 }
 
-
+.Main-Forms{
+  margin-bottom:5rem;
+}
 form{
   display: grid;
   max-width: 100rem;

@@ -21,17 +21,25 @@ include_once('conexao.php');
 // SELECIONA DADOS DO TABELA USUÁRIO DO BANCO DE DADOS.
   $sqlSelect = "SELECT Usuario.Senha, Matricula.CPF, Matricula.Tipo FROM Usuario INNER JOIN Matricula ON  Matricula.CPF=:login and Usuario.Senha=:senha" ;
     $returnSQL = $conn->prepare($sqlSelect);
-    $returnSQL -> bindParam(':login',$_POST['email']);
+    $returnSQL -> bindParam(':login',$_POST['login']);
     $returnSQL -> bindParam(':senha',$_POST['password']);
-   
+    $returnSQL -> execute();
 // VERIFICA SE A SELEÇÃOO FOI FEITA ADEQUADAMENTE E PASSA VARIAVEL DE VERIFICAÇÃO.
       if ($returnSQL -> execute()) {
         // SELECIONA CADA DADO SELECIONADO NO BANCO DE DADOS.
         $fetchall = $returnSQL -> fetchAll();
         // Valida SELEÇÃO.
         if (!$fetchall) {
+          setcookie("emailInvalido", "EMAIL INCORRETO", time() + 3600, "/");
+          setcookie("senhaInvalida", "SENHA INCORRETA", time() + 3600, "/");
+          $_SESSION['msg'] = $_COOKIE["emailInvalido"] . " / ".  $_COOKIE["senhaInvalida"];
           header('Location: ../login.php');
-        }else{
+        }else{ 
+        if ($_SESSION['loginPermitido'] = true) {
+          setcookie("emailValido", $_POST['login'], time() + 3600, "/");
+          setcookie("senhaValida", $_POST['password'], time() + 3600, "/");
+        }
+        unset($_SESSION['loginPermitido']);
           // Verifica Tipo De Usuário.
           switch ($fetchall[1]['Tipo']) {
             case '1':
@@ -49,7 +57,7 @@ include_once('conexao.php');
             }
         }
       }else{
-      header('Location: ../login.php');       
+        header('Location: ../login.php');       
       }
 
   }

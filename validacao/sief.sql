@@ -30,36 +30,23 @@ SET time_zone
 -- Estrutura da tabela `Matricula`
 --
 
-CREATE TABLE `Matricula`
-(
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Nome` varchar/*  */
-(100) NOT NULL,
-  `CPF` varchar
-(12) NOT NULL,
-  `RG` varchar
-(9) NOT NULL,
+CREATE TABLE `Matricula`(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Nome` varchar(100) NOT NULL,
+  `Sexo` varchar(9) NOT NULL,
+  `CPF` varchar(12) NOT NULL UNIQUE,
+  `RG` varchar(9) NOT NULL,
   `Data_nascimento` date NOT NULL,
-  `Cidade` VARCHAR
-(100),
-  `Bairro` VARCHAR
-(100),
-  `Rua` VARCHAR
-(100),
-  `Numero` VARCHAR
-(10),
-  `Celular` INT
-(11),
-  `E-Mail`VARCHAR
-(100),
-  `Tipo` int
-(1) NOT NULL
+  `Cidade` VARCHAR(100),
+  `Bairro` VARCHAR(100),
+  `Rua` VARCHAR(100),
+  `Numero` VARCHAR(12),
+  `Celular` varchar(11),
+  `E-Mail`VARCHAR(100),
+  `Tipo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Matricula`
-VALUES
-  (1, 'Luiz Henrique Gomes Mendes', '49410706823', '59578269', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique Gomes Mendes', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
+INSERT INTO `Matricula` VALUES  (1, 'Luiz Henrique Gomes Mendes','Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 2);
 -- --------------------------------------------------------
 
 --
@@ -68,15 +55,11 @@ VALUES
 
 CREATE TABLE `Usuario`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Nome` varchar
-(100) NOT NULL,
-  `Senha` varchar
-(255) NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Nome` varchar(100) NOT NULL,
+  `Senha` varchar(255) NOT NULL,
   `FK_Matricula` INT,
-  FOREIGN KEY
-(`FK_Matricula`) REFERENCES `Matricula`
-(`id`)
+  FOREIGN KEY(`FK_Matricula`) REFERENCES `Matricula`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -84,10 +67,7 @@ CREATE TABLE `Usuario`
 --
 
 
-INSERT INTO `
-Usuario`
-VALUES
-  (1, 'Luiz Henrique Gomes Mendes', '789621543');
+INSERT INTO `Usuario` VALUES (1, 'Luiz Henrique Gomes Mendes', '789621453', 1);
 
 -- --------------------------------------------------------
 
@@ -97,43 +77,29 @@ VALUES
 
 CREATE TABLE `Admin`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT,
-  FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`
-(`id`)
+  FOREIGN KEY (`FK_Usuario`) REFERENCES `usuario`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Admin` (`
-id`,
-`Nome_turma
-`,`ano`) VALUES
-(1,1);
+INSERT INTO `Admin`(`id`,`FK_Usuario`) VALUES (1,1);
 
--
---------------------------------------------------------=
+
+-- --------------------------------------------------------
+
 --
--- Estrutura da tabela `turma`
+-- Estrutura da tabela `Turma`
 --
 
 CREATE TABLE `Turma`
 (
-  `id` INT
-(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Nome_turma` varchar
-(100) NOT NULL,
-  `Ano` DATE NOT NULL
+  `id` INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Nome_turma` varchar(100) NOT NULL,
+  `Ano` date NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `turma`
---
 
-INSERT INTO `Turma` (`
-id`,
-`Nome_turma
-`,`ano`) VALUES
-(1, '3B',2023-01-01);
+INSERT INTO `Turma` (`id`,`Nome_turma`,`Ano`) VALUES (1, '3B', '2023-01-01');
 
 
 -- --------------------------------------------------------
@@ -144,25 +110,17 @@ id`,
 
 CREATE TABLE `Diciplina`
 (
-  `id` INT
-(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Nome_Diciplina` varchar
-(30) NOT NULL,
+  `id` INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Nome_Diciplina` varchar(30) NOT NULL UNIQUE,
   `FK_Turma` INT,
-  FOREIGN KEY
-(`FK_Turma`) REFERENCES `Turma`
-(`id`)
+  FOREIGN KEY (`FK_Turma`) REFERENCES `Turma`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `diciplina`
 --
 
-INSERT INTO `Diciplina` (`
-id`,
-`Nome_Diciplina
-`, `Fk_Turma`) VALUES
-(1, "Matematica", 1);
+INSERT INTO `Diciplina` (`id`,`Nome_Diciplina`, `Fk_Turma`) VALUES (1, "Matematica", 1);
 
 
 -- --------------------------------------------------------
@@ -173,23 +131,15 @@ id`,
 
 CREATE TABLE `Avaliacao`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Notas` DECIMAL
-(2,2),
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Notas` Numeric(2),
   `FK_Diciplina` INT,
   `FK_Turma` INT,
-  FOREIGN KEY
-(`FK_Diciplina`) REFERENCES `diciplina`
-(`id`),
-  FOREIGN KEY
-(`FK_Turma`) REFERENCES `Turma`
-(`id`)
+  FOREIGN KEY(`FK_Diciplina`) REFERENCES `diciplina`(`id`),  
+  FOREIGN KEY(`FK_Turma`) REFERENCES `Turma`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Avaliacao`
-VALUES
-  (1, 10, 1, 1);
+INSERT INTO `Avaliacao` VALUES (1, 10, 1, 1);
 -- --------------------------------------------------------
 
 --
@@ -198,11 +148,9 @@ VALUES
 
 CREATE TABLE `Porfessor`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT,
-  FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`
-(`id`)
+  FOREIGN KEY (`FK_Usuario`) REFERENCES `usuario`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -213,27 +161,17 @@ CREATE TABLE `Porfessor`
 
 CREATE TABLE `Aluno`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Status` VARCHAR
-(11) NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
+  `Status` VARCHAR(11) NOT NULL,
   `FK_Usuario` INT,
   `FK_Avaliacao` INT,
   `FK_Diciplina` INT,
-  FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`
-(`id`),
-  FOREIGN KEY
-(`FK_Avaliacao`) REFERENCES `Avaliacao`
-(`id`),
-  FOREIGN KEY
-(`FK_Diciplina`) REFERENCES `Diciplina`
-(`id`)
+  FOREIGN KEY (`FK_Usuario`) REFERENCES `usuario` (`id`),
+  FOREIGN KEY (`FK_Avaliacao`) REFERENCES `Avaliacao`(`id`),
+  FOREIGN KEY (`FK_Diciplina`) REFERENCES `Diciplina`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Aluno`
-VALUES
-  (1, "Aprovado", 2, 1, 1);
+INSERT INTO `Aluno` VALUES  (1, "Aprovado", 1, 1, 1);
 
 
 --
@@ -242,29 +180,20 @@ VALUES
 
 CREATE TABLE `Calendario_aula`
 (
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `Data` DATETIME NOT NULL,
-  `Nome_aula` VARCHAR
-(25) NOT NULL,
+  `Nome_aula` VARCHAR(25) NOT NULL,
   `Chamada` Boolean NOT NULL,
   `FK_Aluno` INT,
   `FK_Diciplina` INT,
-  FOREIGN KEY
-(`FK_Diciplina`) REFERENCES `Diciplina`
-(`id`),
-  FOREIGN KEY
-(`FK_Aluno`) REFERENCES `Aluno`
-(`id`)
+  FOREIGN KEY (`FK_Diciplina`) REFERENCES `Diciplina`(`id`),
+  FOREIGN KEY (`FK_Aluno`) REFERENCES `Aluno`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Calendario_aula`(`
-id`,`Data
-`,`Nome_aula`, `Chamada`, `FK_Aluno`, FK_Diciplina) VALUES
-(1, 2023-06-07,"Aula Experimental", 1, 1, 1);
+INSERT INTO `Calendario_aula`(`id`,`Data`,`Nome_aula`, `Chamada`, `FK_Aluno`, `FK_Diciplina`) VALUES (1, '2023-06-07',"Aula Experimental", 1, 1, 1);
 
 
 -----------------------------------------------------------
-----------------SELECIONANDO USUARIO-------------
+----------------`SELECIONANDO USUARIO`
 
-SELECT Admin.id , Usuario.*
-FROM Admin INNER JOIN Usuario ON Admin.id = usuario.id;
+SELECT Admin.id , Usuario.* FROM Admin INNER JOIN Usuario ON Admin.id = usuario.id;

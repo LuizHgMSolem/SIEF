@@ -21,7 +21,7 @@ error_reporting(0)
           <!-- FORMULARIO -->
           <form action="validacao/validacao_login.php" method="post">
             <div class="login breakline">
-              <input type="text" name="email" class="bardisplay" id="email" placeholder="Insira o Login" value="<?php echo $_COOKIE["emailValido"]?>" required>
+              <input type="text" name="login" class="bardisplay" id="email" placeholder="Insira o Login" value="<?php echo $_COOKIE["emailValido"]?>" required>
             </div>
             <div class="senha breakline">
               <input type="password" name="password" class="bardisplay" id="password" placeholder="Insira a Senha" value="<?php echo $_COOKIE["senhaValida"]?>" required>
@@ -38,8 +38,9 @@ error_reporting(0)
     </main>
 
     <?php
-    echo $_COOKIE["emailInvalido"]."<br>";
-    echo $_COOKIE["senhaInvalida"];
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+
     ?>
 </body>
 </html>
