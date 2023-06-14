@@ -41,7 +41,7 @@ include_once('conexao.php');
         }
         unset($_SESSION['loginPermitido']);
           // Verifica Tipo De Usuário.
-          switch ($fetchall[1]['Tipo']) {
+          switch ($fetchall[0]['Tipo']) {
             case '1':
               $_SESSION['tipoUsuario'] = 1;
               header('Location: ../paginaPrincipal/admin.php');
