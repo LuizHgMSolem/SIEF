@@ -3,7 +3,7 @@ session_start();
 // error_reporting(0);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-  header("Location: index.php");
+  header("Location: ../index.php");
   exit();
 };
 
@@ -50,7 +50,7 @@ include_once('conexao.php');
               $_SESSION['tipoUsuario'] = 2;
               header('Location: ../paginaPrincipal/professor.php');
               break;
-            case '2':
+            case '3':
               $_SESSION['tipoUsuario'] = 3;
               header('Location: ../paginaPrincipal/aluno.php');
               break;

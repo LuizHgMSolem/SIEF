@@ -46,7 +46,7 @@ CREATE TABLE `Matricula`(
   `Tipo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Matricula` VALUES  (1, 'Luiz Henrique Gomes Mendes','Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 2);
+INSERT INTO `Matricula` VALUES  (1, 'Luiz Henrique Gomes Mendes','Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
 -- --------------------------------------------------------
 
 --

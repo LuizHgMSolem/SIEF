@@ -117,9 +117,18 @@ ValidarRegistro();
 
 <?php
   include_once('../validacao/conexao.php');
-
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-  var_dump($dadosMatricula);
+  $NumEmpty = 0;
+  foreach ($dadosMatricula as $key => $value) {
+    $NumEmpty++;
+    $dadosVazios[$NumEmpty] = $dadosMatricula[$key];
+
+    if (empty($dadosVazios[$NumEmpty])){
+      $_SESSION["CamposVazios"] = $key . " Preechido Icorretamente";
+    }
+    echo ($_SESSION["CamposVazios"]). "<br>";
+    
+  }
   // error_reporting(0);
   if(empty($dadosMatricula)){
       $msg = "Por favor preencha todos os items";
