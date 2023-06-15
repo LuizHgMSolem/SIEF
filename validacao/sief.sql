@@ -58,10 +58,7 @@ CREATE TABLE `Matricula`
 (1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Matricula`
-VALUES
-  (1, 'Luiz Henrique Gomes Mendes', 'Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
+INSERT INTO `Matricula` VALUES (1, 'Luiz Henrique Gomes Mendes', 'Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
 -- --------------------------------------------------------
 
 --
@@ -88,10 +85,7 @@ CREATE TABLE `Usuario`
 --
 
 
-INSERT INTO `
-Usuario`
-VALUES
-  (1, 'Luiz Henrique Gomes Mendes', '49410706823' , '789621453', 1);
+INSERT INTO `Usuario` VALUES (1, 'Luiz Henrique Gomes Mendes', '49410706823' , '789621453', 1);
 
 -- --------------------------------------------------------
 
@@ -130,10 +124,7 @@ CREATE TABLE `Turma`
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-INSERT INTO `Turma` (`
-id`,`Nome_turma
-`,`Ano`) VALUES
-(1, '3B', '2023-01-01');
+INSERT INTO `Turma` (`id`,`Nome_turma`,`Ano`) VALUES (1, '3B', '2023-01-01');
 
 
 -- --------------------------------------------------------
@@ -158,10 +149,7 @@ CREATE TABLE `Diciplina`
 -- Extraindo dados da tabela `diciplina`
 --
 
-INSERT INTO `Diciplina` (`
-id`,`Nome_Diciplina
-`, `Fk_Turma`) VALUES
-(1, "Matematica", 1);
+INSERT INTO `Diciplina` (`id`,`Nome_Diciplina`, `Fk_Turma`) VALUES (1, "Matematica", 1);
 
 
 -- --------------------------------------------------------
@@ -185,10 +173,7 @@ CREATE TABLE `Avaliacao`
 (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Avaliacao`
-VALUES
-  (1, 10, 1, 1);
+INSERT INTO `Avaliacao` VALUES  (1, 10, 1, 1);
 -- --------------------------------------------------------
 
 --
@@ -229,10 +214,7 @@ CREATE TABLE `Aluno`
 (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `
-Aluno`
-VALUES
-  (1, "Aprovado", 1, 1, 1);
+INSERT INTO `Aluno` VALUES (1, "Aprovado", 1, 1, 1);
 
 
 --
@@ -256,10 +238,7 @@ CREATE TABLE `Calendario_aula`
 (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Calendario_aula`(`
-id`,`Data
-`,`Nome_aula`, `Chamada`, `FK_Aluno`, `FK_Diciplina`) VALUES
-(1, '2023-06-07',"Aula Experimental", 1, 1, 1);
+INSERT INTO `Calendario_aula`(`id`,`Data`,`Nome_aula`, `Chamada`, `FK_Aluno`, `FK_Diciplina`) VALUES (1, '2023-06-07',"Aula Experimental", 1, 1, 1);
 
 
 -----------------------------------------------------------
