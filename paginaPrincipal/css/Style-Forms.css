@@ -197,7 +197,7 @@ TELA DE CADASTRO DO USUARIO
   grid-area: 2/2;
 }
 
-.Cadastrar{
+.cadastrar{
   grid-area: 1/2;
   padding-inline: 30%;
 }

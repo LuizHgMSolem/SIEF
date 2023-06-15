@@ -111,12 +111,17 @@ ValidarRegistro();
 <?php
   include_once('../../validacao/conexao.php');
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-  // error_reporting(0);
-  if(empty($dadosMatricula)){
+  error_reporting(0);
+   foreach ($dadosMatricula as $key => $value) {
+      if (empty($dadosMatricula[$key])) {
+        $_SESSION["FormularioInvalido"] = true;
+      }
+   }
+
+  if($_SESSION["FormularioInvalido"]){
       $msg = "Por favor preencha todos os items";
       echo "<h3>".$msg."</h3>";
   }else {
-  }
   $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
   $IstMaticula = $conn -> prepare($SQLMatricula);
   $IstMaticula -> bindParam(":Nome",$dadosMatricula['Nome']);
@@ -132,5 +137,7 @@ ValidarRegistro();
   $IstMaticula -> bindParam(":Email",$dadosMatricula['E-mail']);
   $IstMaticula -> bindParam(":Tipo",$dadosMatricula['Tipo']);
   $IstMaticula -> execute();
+}
+
 ?>
 
