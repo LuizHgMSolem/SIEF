@@ -1,38 +1,52 @@
-z<?php
+<?php
 session_start();
 
 if ($_SERVER['REQUEST_METHOD']=='GET') {
-  header("Location: ../cadastrar.php");
+  header("Location: ../login.php");
   exit();
 }
 
 include_once('conexao.php');
 
-
-
-$cadastro = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-$json = file_get_contents("../login.json");
-$jsonRegistrado = json_decode($json, true);
-
-
-foreach ($jsonRegistrado['login'] as $numlogin => $loginRegistrado) {
-  if ($cadastro['email'] === $loginRegistrado["email"]) {
-    $_SESSION["registroExiste"]= true;
-    header("Location: ../cadastrar.php"); 
-    exit(); 
-  }else{
-    $_SESSION["registroExiste"] = false;
+$CheckMatricula = "SELECT Matricula.id FROM Matricula ORDER BY Matricula.id";
+$SQLMatricula = $conn -> prepare($CheckMatricula);
+$SQLMatricula -> execute();
+if ($SQLMatricula -> execute()) {
+  $AllMatricula = $SQLMatricula->fetchAll();
+  if ($AllMatricula) {
+    $cadastro = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    // Valida cadastro
+    if (isset($cadastro) && !empty($cadastro)) {
+      // Verifica se possui informações vazias;
+      foreach ($cadastro as $key => $value) {
+        $emptyInfoCadastro = $cadastro[$key];
+        if (empty($emptyInfoCadastro)) {
+            $_SESSION['CadastroInvalido'] = true;
+        }else {
+          $_SESSION['CadastroInvalido'] = false;
+        }
+      }
+      // Se possuir informações vazias retornar para cadastro;
+      if ($_SESSION['CadastroInvalido']) {
+        $_SESSION["Administrador"] = true;
+        header("Location: ../paginaPrincipal/Administrador/cadastro_usuario.php");
+      }else {
+        foreach ($AllMatricula as $key => $value) {
+          var_dump($value);
+        if ($value['id'] == $cadastro["MatriculaId"]){
+          $InsertUsuario = "INSERT INTO Usuario VALUES(0, :Nome, :Usuario, :Senha, :Matricula)";
+          $SqlUsuario = $conn -> prepare($InsertUsuario);
+          $SqlUsuario -> bindParam(":Nome", $cadastro["UsuarioName"]);
+          $SqlUsuario -> bindParam(":Usuario", $cadastro["userLogin"]);
+          $SqlUsuario -> bindParam(":Senha", $cadastro["Senha"]);
+          $SqlUsuario -> bindParam(":Matricula", $cadastro["MatriculaId"]);
+          $SQLMatricula -> execute();
+        }  
+        }
+      }
+    }
   }
-}
 
-if (!$_SESSION["registroExiste"]) {
-  $jsonRegistrado["login"][] = ["email" => $cadastro["email"], "senha" => $cadastro["password"]];
-  $newJsonCad = json_encode($jsonRegistrado);
-  var_dump($jsonRegistrado);
-  file_put_contents("../login.json",$newJsonCad);
-  header("Location: ../cadastrar.php"); 
 }
-
 ?>
 

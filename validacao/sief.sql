@@ -37,10 +37,10 @@ CREATE TABLE `Matricula`(
   `CPF` varchar(12) NOT NULL UNIQUE,
   `RG` varchar(9) NOT NULL,
   `Data_nascimento` date NOT NULL,
-  `Cidade` VARCHAR(100),
-  `Bairro` VARCHAR(100),
-  `Rua` VARCHAR(100),
-  `Numero` VARCHAR(12),
+  `Cidade` VARCHAR(100) NOT NULl,
+  `Bairro` VARCHAR(100) NOT NULl,
+  `Rua` VARCHAR(100) NOT NULl,
+  `Numero` VARCHAR(12) NOT NULl,
   `Celular` varchar(11),
   `E-Mail`VARCHAR(100),
   `Tipo` int(1) NOT NULL
@@ -57,6 +57,7 @@ CREATE TABLE `Usuario`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `Nome` varchar(100) NOT NULL,
+  `Usuario` varchar(100) NOT NULL UNIQUE,
   `Senha` varchar(255) NOT NULL,
   `FK_Matricula` INT,
   FOREIGN KEY(`FK_Matricula`) REFERENCES `Matricula`(`id`)
@@ -67,7 +68,7 @@ CREATE TABLE `Usuario`
 --
 
 
-INSERT INTO `Usuario` VALUES (1, 'Luiz Henrique Gomes Mendes', '789621453', 1);
+INSERT INTO `Usuario` VALUES (1, 'Luiz Henrique Gomes Mendes', '49410706823' , '789621453', 1);
 
 -- --------------------------------------------------------
 

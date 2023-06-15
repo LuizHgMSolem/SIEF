@@ -21,18 +21,11 @@ ValidarRegistro();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/Style-Forms.css">
+  <link rel="stylesheet" href="../css/Style-Forms.css">
   <title>Área de Matricula</title>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Cadastro</a></li>
-      </ul>
-    </nav>
-  </header>  
+  <?php include_once("../cabecalho.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -93,7 +86,7 @@ ValidarRegistro();
                   <input type="text" id="E-Mail" class="txtE-Mail " name="E-Mail">
                 </div>
                 <div class="input-items">
-                  <label for="E-Mail">Tipo</label>
+                  <label for="Usuario">Tipo</label>
                   <select name="Tipo" id="Usuario">
                   <option value="1">Administrador</option>
                   <option value="2">Professor</option>
@@ -116,17 +109,14 @@ ValidarRegistro();
 </html>
 
 <?php
-  include_once('../validacao/conexao.php');
-
+  include_once('../../validacao/conexao.php');
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-  var_dump($dadosMatricula);
   // error_reporting(0);
   if(empty($dadosMatricula)){
       $msg = "Por favor preencha todos os items";
       echo "<h3>".$msg."</h3>";
   }else {
   }
-  
   $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
   $IstMaticula = $conn -> prepare($SQLMatricula);
   $IstMaticula -> bindParam(":Nome",$dadosMatricula['Nome']);

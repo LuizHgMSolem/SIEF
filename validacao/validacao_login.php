@@ -44,7 +44,7 @@ include_once('conexao.php');
           switch ($fetchall[0]['Tipo']) {
             case '1':
               $_SESSION['tipoUsuario'] = 1;
-              header('Location: ../paginaPrincipal/admin.php');
+              header('Location: ../paginaPrincipal/Administrador/admin.php');
               break;
             case '2':
               $_SESSION['tipoUsuario'] = 2;
