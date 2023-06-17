@@ -73,7 +73,12 @@ body{
   opacity: 0;
 }
 
+.Opitions{
+  height: 2rem;
+}
+
 .enviar{
+  margin-top: 2rem;
   width: 20rem;
   height:2rem;
 }

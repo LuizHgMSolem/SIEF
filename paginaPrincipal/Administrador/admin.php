@@ -1,11 +1,19 @@
 <?php
   session_start();
-  $msg="";
+  $_SESSION['msg']="";
+
 // Função Validar Reginstro
 function ValidarRegistro(){
+  // FAZ LOGOUT 
+  if (isset($_POST["Logout"]) && !empty($_POST["Logout"])) {
+    if ($_POST["Logout"]) {
+      $_SESSION['tipoUsuario'] = 0;
+    }
+  }
+
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../login.php');        
+    header('Location: ../../login.php');        
   }
 }
 ValidarRegistro();
@@ -25,7 +33,7 @@ ValidarRegistro();
   <title>Área de Matricula</title>
 </head>
 <body>
-  <?php include_once("../cabecalho.php");?>
+  <?php include_once("cabecalho.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -113,14 +121,14 @@ ValidarRegistro();
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   error_reporting(0);
    foreach ($dadosMatricula as $key => $value) {
-      if (empty($dadosMatricula[$key])) {
+      if (isset($dadosMatricula[$key]) && empty($dadosMatricula[$key])) {
         $_SESSION["FormularioInvalido"] = true;
       }
    }
 
   if($_SESSION["FormularioInvalido"]){
-      $msg = "Por favor preencha todos os items";
-      echo "<h3>".$msg."</h3>";
+      $_SESSION['msg'] = "Por favor preencha todos os items";
+      echo "<h3>".$_SESSION['msg']."</h3>";
   }else {
   $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
   $IstMaticula = $conn -> prepare($SQLMatricula);
@@ -138,6 +146,7 @@ ValidarRegistro();
   $IstMaticula -> bindParam(":Tipo",$dadosMatricula['Tipo']);
   $IstMaticula -> execute();
 }
-
+unset($_SESSION["FormularioInvalido"]);
+unset($dadosMatricula);
 ?>
 

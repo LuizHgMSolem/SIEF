@@ -97,15 +97,10 @@ CREATE TABLE `Admin`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT,
-  FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`
-(`id`)
+  FOREIGN KEY(`FK_Usuario`) REFERENCES `usuario`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Admin`(`
-id`,`FK_Usuario
-`) VALUES
-(1,1);
+INSERT INTO `Admin`(`id`,`FK_Usuario`) VALUES(1,1);
 
 
 -- --------------------------------------------------------
@@ -180,15 +175,15 @@ INSERT INTO `Avaliacao` VALUES  (1, 10, 1, 1);
 -- Estrutura da tabela `Professor`
 --
 
-CREATE TABLE `Porfessor`
+CREATE TABLE `Professor`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT,
   FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`
-(`id`)
+(`FK_Usuario`) REFERENCES `usuario`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `Professor`(`id`,`FK_Usuario`) VALUES(1,1);
 -- --------------------------------------------------------
 
 --

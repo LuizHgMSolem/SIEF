@@ -38,10 +38,9 @@ body {
   min-width: 90rem; 
   min-height: 100vh;
 }
-/*******************
-START MAIN CONTENT
-*******************/
-
+/*********************
+  CABEÇALHO CONTENT
+**********************/
 header{
   display: grid;
   place-items: center;
@@ -51,6 +50,8 @@ header{
 }
 
 nav{
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
   width: 100%;
   height: 80%;
 }
@@ -59,9 +60,11 @@ nav ul {
   display: grid;
   place-items: center;
   gap: 1rem;
+  height: min-content;
 }
 
 nav li{
+  display: block;
   border: solid #7d7d7d;
   width: 100%;
   color: #fff;
@@ -77,13 +80,32 @@ nav li{
   color: #f8f8;
 }
 
+.btn-cabecalho-logout, .logout-form{
+  display: block;
+  width: 100%;
+}
+
+.btn-cabecalho-logout{
+  border: solid 1px #7d7d7d;
+  color: #fff;
+  background-color: rgb(97, 97, 112);
+  cursor: pointer;
+}
+
+.logout{
+  align-self: end;
+}
+
+/*******************
+START MAIN CONTENT
+*******************/
+
 main{
   display: grid;
   grid-area: 1/2;
   place-items: center;
 
 }
-
 
 .main-container{
   display: grid;
@@ -146,7 +168,6 @@ form{
   grid-area:1/2;
 }
 
-
 #rg-label, #cpf-label{
   grid-area: 2/1;
 }
@@ -181,7 +202,6 @@ form{
   grid-area: 2/2;
 }
 
-
 /*******************************
 TELA DE CADASTRO DO USUARIO
 *****************************/
@@ -189,7 +209,6 @@ TELA DE CADASTRO DO USUARIO
   max-width: fit-content;
   grid-area: 1/2;
 }
-
 
 .SendTipo{
   max-width: fit-content;
