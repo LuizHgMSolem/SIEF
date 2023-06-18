@@ -17,7 +17,7 @@ function validPathLogin(){
   $PostInfo = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 include_once('conexao.php');
 // SELECIONA DADOS DO TABELA USUÁRIO DO BANCO DE DADOS.
-  $sqlSelect = "SELECT  Matricula.id, Usuario.FK_Matricula, Usuario.Senha, Usuario.Usuario, Matricula.Tipo FROM (Usuario,Professor,Aluno,Admin) INNER JOIN Matricula on Matricula.id = Usuario.FK_Matricula and Usuario.Usuario=:login and Usuario.Senha=:senha";    
+  $sqlSelect = "SELECT  Matricula.id, Usuario.FK_Matricula, Usuario.Senha, Usuario.Usuario, Matricula.Tipo FROM Usuario INNER JOIN Matricula on Matricula.id = Usuario.FK_Matricula and Usuario.Usuario=:login and Usuario.Senha=:senha";    
     $returnSQL = $conn->prepare($sqlSelect);
     $returnSQL -> bindParam(':login',$PostInfo['login']);
     $returnSQL -> bindParam(':senha',$PostInfo['password']);
@@ -37,9 +37,8 @@ include_once('conexao.php');
           setcookie("emailValido", $_POST['login'], time() + 3600, "/");
           setcookie("senhaValida", $_POST['password'], time() + 3600, "/");
         }
-        $idTableUsuario =$fetchUser[0]['id'];
-
-          
+        // Passa o ID de USUARAIO que Logou na tela  
+        $idTableUsuario =$fetchUser[0]['id'];         
           // Verifica Tipo De Usuário.
             if ($PostInfo['TipoUsuario'] == 1){
               $SqlTipoUser = "SELECT Admin.FK_Usuario FROM Admin,Usuario WHERE Admin.FK_Usuario=$idTableUsuario";
@@ -77,7 +76,7 @@ include_once('conexao.php');
                 header('Location: ../paginaPrincipal/aluno.php');
                 }else {
                   echo "<h1 style='text-align:center;'>VOCÊ NÃO POSSUÍ ACESSO COMO ALUNO</h1>";
-                  // header('Location: ../login.php');
+                  header('Location: ../login.php');
                 }
             }
           unset($_SESSION['loginPermitido']);

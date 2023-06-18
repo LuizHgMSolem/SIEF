@@ -4,8 +4,9 @@
   $sqlUserMTR = $conn->prepare($userMTR);
   $sqlUserMTR -> bindParam(":Tipo", $_POST["Tipo"]);
   $sqlUserMTR -> execute();
-  if (!$sqlUserMTR -> execute()) {
 
+
+  if (!$sqlUserMTR -> execute()) {
   }else{
     $userList = $sqlUserMTR->fetchAll();
     if (!isset($userList)) {
@@ -29,7 +30,7 @@
       <div class="main-container">
         <div class="Main-Title">
           <div class="Title-Container">
-            <h1 title="Matricula" >MATRICULA</h1>
+            <h1 title="Matricula" >Cadastro Usuario</h1>
           </div>
         </div>
         <div class="Main-Forms">
@@ -39,15 +40,20 @@
                 <div class="input-items">
                   <label for="Usuario">Selecionar Tipo</label>
                   <select name="Tipo" class="UsuarioTipo" id="Usuario">
-                  <option value="1">Administrador</option>
-                  <option value="2">Professor</option>
-                  <option value="3">Aluno</option>
+                    <option value="#"></option>
+                    <option value="1">Administrador</option>
+                    <option value="2">Professor</option>
+                    <option value="3">Aluno</option>
                   </select>
-                  <!-- ********************
-                          BOTÂO TIPO
-                  ******************* -->
-                  <input type="submit" class="btn btn-secondary SendTipo" value="Escolha o tipo de usuário">
                 </div>
+                <div class="input-items">         
+                      <label for="MatriculaId">Número da Matricula</label>
+                      <input type="text" name="Matricula" id="MatriculaId" class="txtMatriculaId" value='<?php echo !empty($_POST['Matricula']) ? $_POST['Matricula'] : "";?>' name="MatriculaId">
+                      <!-- ********************
+                          BOTÂO TIPO
+                      ******************* -->
+                      <input type="submit" class="btn btn-secondary SendTipo" value="Pesquisar Usuário">
+                  </div>
             </form>
             <form action="../../validacao/validarcadastro.php" method="post">
               <div class="form-inputs">
@@ -58,49 +64,64 @@
                   if (empty($userList)) {
                     echo "<option value=''></option>";
                   }else{
-                    echo"<option value='".$userList[0]["Nome"]."'>". $userList[0]["Nome"]."</option>";
+                    foreach ($userList as $key => $value) {
+                      if ($_POST['Matricula'] == $userList[$key]['id']) {
+                      echo"<option value='".$userList[$key]["Nome"]."'>". $userList[$key]["Nome"]."</option>";
+                      }
+                    }
                   } 
                   ?>
                   </select>
                 </div>
 
+                <div class="input-items">         
+                  <?php
+                    if(!empty($userList)){
+                  ?>
+                      <label for="MatriculaId">Número da Matricula</label>
+                      <input type="text" name="Matricula" id="MatriculaId" class="txtMatriculaId" value='<?php echo !empty($_POST['Matricula']) ? $_POST['Matricula'] : "";?>' name="MatriculaId">
+
+                  <?php
+                    }
+                  ?>
+                  </div>
+
                 <div class="input-items">
                   <?php
-                   if (empty($userList)) {
-                  ?>                  
+                    if (empty($userList)){
+                  ?>
                     <label for="userLogin">Login de Usuário</label>
                     <input type="text" id="userLogin" class="txtuserLogin" value="" name="userLogin">
+
                   <?php
-                  }else{
+                    }
+                  ?>
+                  <?php
+
+                      foreach ($userList as $key => $value) {
+                      if ($_POST['Matricula'] == $userList[$key]['id']) {
+                      
                   ?>
                     <label for="userLogin">Login de Usuário</label>
-                    <input type="text" id="userLogin" class="txtuserLogin" value="<?=$userList[0]['CPF']?>" name="userLogin">
-                  <?php
-                  }
-                  ?>
+                    <input type="text" id="userLogin" class="txtuserLogin" value="<?= $userList[$key]["CPF"]?>" name="userLogin">
+                 <?php
+                      }
+                    } 
+                 ?>
                 </div>
-
-                <div class="input-items">
-                  <?php
-                   if (empty($userList)) {
-                  ?>                  
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtuserMatriculaId" value="" name="MatriculaId">
-                  <?php
-                  }else{
-                  ?>
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtMatriculaId" value="<?=$userList[0]['id']?>" name="MatriculaId">
-                  <?php
-                  }
-                  ?>
-                </div>
-
                 <div class="input-items">
                   <label for="Senha">Senha</label>
                   <input type="text" id="Senha" class="txtSenha " name="Senha">
                 </div>
 
+                <div class="input-items">
+                  <label for="Usuario">Cadastrar Usuario Como:</label>
+                  <select name="InsertTipoUser" class="UsuarioTipo" id="Usuario">
+                  <option value="1">Administrador</option>
+                  <option value="2">Professor</option>
+                  <option value="3">Aluno</option>
+                  </select>
+                </div>
               </div>
               <div class="button">
                 <input type="submit" class="btn btn-primary cadastrar" value="Cadastrar" name="Cadastrar">

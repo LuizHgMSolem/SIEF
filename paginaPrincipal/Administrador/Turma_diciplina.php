@@ -1,14 +1,15 @@
 <?php
   include_once('../../validacao/conexao.php');
-  $userMTR = "SELECT Matricula.id, Matricula.Nome, Matricula.CPF, Matricula.Tipo  FROM Matricula WHERE Matricula.Tipo = :Tipo";
-  $sqlUserMTR = $conn->prepare($userMTR);
-  $sqlUserMTR -> bindParam(":Tipo", $_POST["Tipo"]);
-  $sqlUserMTR -> execute();
-  if (!$sqlUserMTR -> execute()) {
+  $SqlDiciplina = "SELECT * FROM diciplina";
+  $SelctDiciplina = $conn->prepare($SqlDiciplina);
+  $SelctDiciplina -> execute();
+  if (!$SelctDiciplina -> execute()) {
 
   }else{
-    $userList = $sqlUserMTR->fetchAll();
-    if (!isset($userList)) {
+    $Diciplina = $SelctDiciplina->fetchAll();
+    var_dump($Diciplina[0]['Nome_Diciplina']);
+
+    if (!isset($Diciplina)) {
     }else{
 ?>
 
@@ -34,73 +35,12 @@
         </div>
         <div class="Main-Forms">
           <div class="Forms-Container">
-          <form action="cadastro_usuario.php" method="post">
-              <div class="form-inputs">
-                <div class="input-items">
-                  <label for="Usuario">Selecionar Tipo</label>
-                  <select name="Tipo" class="UsuarioTipo" id="Usuario">
-                  <option value="1">Administrador</option>
-                  <option value="2">Professor</option>
-                  <option value="3">Aluno</option>
-                  </select>
-                  <!-- ********************
-                          BOTÂO TIPO
-                  ******************* -->
-                  <input type="submit" class="btn btn-secondary SendTipo" value="Escolha o tipo de usuário">
-                </div>
-            </form>
             <form action="../../validacao/validarcadastro.php" method="post">
               <div class="form-inputs">
                 <div class="input-items">
-                  <label for="UsuarioName">Selecionar Usuario</label>
-                  <select name="UsuarioName" id="UsuarioName">
-                  <?php 
-                  if (empty($userList)) {
-                    echo "<option value=''></option>";
-                  }else{
-                    echo"<option value='".$userList[0]["Nome"]."'>". $userList[0]["Nome"]."</option>";
-                  } 
-                  ?>
-                  </select>
+                  <label for="UsuarioName">Nome da Diciplina</label>
+                  <input type="text" id="Diciplina" class="txtDiciplina" placeholder="Diciplina" name="Diciplina">
                 </div>
-
-                <div class="input-items">
-                  <?php
-                   if (empty($userList)) {
-                  ?>                  
-                    <label for="userLogin">Login de Usuário</label>
-                    <input type="text" id="userLogin" class="txtuserLogin" value="" name="userLogin">
-                  <?php
-                  }else{
-                  ?>
-                    <label for="userLogin">Login de Usuário</label>
-                    <input type="text" id="userLogin" class="txtuserLogin" value="<?=$userList[0]['CPF']?>" name="userLogin">
-                  <?php
-                  }
-                  ?>
-                </div>
-
-                <div class="input-items">
-                  <?php
-                   if (empty($userList)) {
-                  ?>                  
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtuserMatriculaId" value="" name="MatriculaId">
-                  <?php
-                  }else{
-                  ?>
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtMatriculaId" value="<?=$userList[0]['id']?>" name="MatriculaId">
-                  <?php
-                  }
-                  ?>
-                </div>
-
-                <div class="input-items">
-                  <label for="Senha">Senha</label>
-                  <input type="text" id="Senha" class="txtSenha " name="Senha">
-                </div>
-
               </div>
               <div class="button">
                 <input type="submit" class="btn btn-primary cadastrar" value="Cadastrar" name="Cadastrar">
@@ -111,73 +51,32 @@
         </div>
         <div class="Main-Forms">
           <div class="Forms-Container">
-          <form action="cadastro_usuario.php" method="post">
-              <div class="form-inputs">
-                <div class="input-items">
-                  <label for="Usuario">Selecionar Tipo</label>
-                  <select name="Tipo" class="UsuarioTipo" id="Usuario">
-                  <option value="1">Administrador</option>
-                  <option value="2">Professor</option>
-                  <option value="3">Aluno</option>
-                  </select>
-                  <!-- ********************
-                          BOTÂO TIPO
-                  ******************* -->
-                  <input type="submit" class="btn btn-secondary SendTipo" value="Escolha o tipo de usuário">
-                </div>
-            </form>
             <form action="../../validacao/validarcadastro.php" method="post">
               <div class="form-inputs">
                 <div class="input-items">
-                  <label for="UsuarioName">Selecionar Usuario</label>
-                  <select name="UsuarioName" id="UsuarioName">
+                  <label for="Turma">Nome da Turma</label>
+                  <input type="text" id="Turma" class="txtTurma" placeholder="Turma" name="Turma">
+                </div>
+
+                <div class="input-items">
+                    <label for="TurmaAno">Ano da turma</label>
+                    <input type="text" id="TurmaAno" class="txtTurmaAno" value="<?php echo date("Y");?>" name="TurmaAno">
+                </div>
+
+                <div class="input-items">
+                  <label for="DiciplinaName">Adicionar Diciplina</label>
+                  <select name="DiciplinaName" id="DiciplinaName">
                   <?php 
-                  if (empty($userList)) {
+                  if (empty($Diciplina)) {
                     echo "<option value=''></option>";
                   }else{
-                    echo"<option value='".$userList[0]["Nome"]."'>". $userList[0]["Nome"]."</option>";
+                    foreach ($Diciplina as $key => $value) {
+                      echo"<option value='".$Diciplina[0]['Nome_Diciplina']."'>". $Diciplina[0]['Nome_Diciplina']."</option>";
+                    }
                   } 
                   ?>
                   </select>
                 </div>
-
-                <div class="input-items">
-                  <?php
-                   if (empty($userList)) {
-                  ?>                  
-                    <label for="userLogin">Login de Usuário</label>
-                    <input type="text" id="userLogin" class="txtuserLogin" value="" name="userLogin">
-                  <?php
-                  }else{
-                  ?>
-                    <label for="userLogin">Login de Usuário</label>
-                    <input type="text" id="userLogin" class="txtuserLogin" value="<?=$userList[0]['CPF']?>" name="userLogin">
-                  <?php
-                  }
-                  ?>
-                </div>
-
-                <div class="input-items">
-                  <?php
-                   if (empty($userList)) {
-                  ?>                  
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtuserMatriculaId" value="" name="MatriculaId">
-                  <?php
-                  }else{
-                  ?>
-                    <label for="MatriculaId">Número da Matricula</label>
-                    <input type="text" id="MatriculaId" class="txtMatriculaId" value="<?=$userList[0]['id']?>" name="MatriculaId">
-                  <?php
-                  }
-                  ?>
-                </div>
-
-                <div class="input-items">
-                  <label for="Senha">Senha</label>
-                  <input type="text" id="Senha" class="txtSenha " name="Senha">
-                </div>
-
               </div>
               <div class="button">
                 <input type="submit" class="btn btn-primary cadastrar" value="Cadastrar" name="Cadastrar">
