@@ -1,11 +1,19 @@
 <?php
   session_start();
-  $msg="";
+  $_SESSION['msg']="";
+
 // Função Validar Reginstro
 function ValidarRegistro(){
+  // FAZ LOGOUT 
+  if (isset($_POST["Logout"]) && !empty($_POST["Logout"])) {
+    if ($_POST["Logout"]) {
+      $_SESSION['tipoUsuario'] = 0;
+    }
+  }
+
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../login.php');        
+    header('Location: ../../login.php');        
   }
 }
 ValidarRegistro();
@@ -21,18 +29,11 @@ ValidarRegistro();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/Style-Forms.css">
+  <link rel="stylesheet" href="../../css/Style-Forms.css">
   <title>Área de Matricula</title>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Cadastro</a></li>
-      </ul>
-    </nav>
-  </header>  
+  <?php include_once("cabecalho.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -93,7 +94,7 @@ ValidarRegistro();
                   <input type="text" id="E-Mail" class="txtE-Mail " name="E-Mail">
                 </div>
                 <div class="input-items">
-                  <label for="E-Mail">Tipo</label>
+                  <label for="Usuario">Tipo</label>
                   <select name="Tipo" id="Usuario">
                   <option value="1">Administrador</option>
                   <option value="2">Professor</option>
@@ -116,6 +117,7 @@ ValidarRegistro();
 </html>
 
 <?php
+<<<<<<< HEAD:paginaPrincipal/admin.php
   include_once('../validacao/conexao.php');
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   $NumEmpty = 0;
@@ -133,9 +135,21 @@ ValidarRegistro();
   if(empty($dadosMatricula)){
       $msg = "Por favor preencha todos os items";
       echo "<h3>".$msg."</h3>";
+=======
+  include_once('../../validacao/conexao.php');
+  $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+  error_reporting(0);
+   foreach ($dadosMatricula as $key => $value) {
+      if (isset($dadosMatricula[$key]) && empty($dadosMatricula[$key])) {
+        $_SESSION["FormularioInvalido"] = true;
+      }
+   }
+
+  if($_SESSION["FormularioInvalido"]){
+      $_SESSION['msg'] = "Por favor preencha todos os items";
+      echo "<h3>".$_SESSION['msg']."</h3>";
+>>>>>>> 0e6ffb5a1a620e1161bf1c5764af63ba0f482df6:paginaPrincipal/Administrador/admin.php
   }else {
-  }
-  
   $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
   $IstMaticula = $conn -> prepare($SQLMatricula);
   $IstMaticula -> bindParam(":Nome",$dadosMatricula['Nome']);
@@ -151,5 +165,8 @@ ValidarRegistro();
   $IstMaticula -> bindParam(":Email",$dadosMatricula['E-mail']);
   $IstMaticula -> bindParam(":Tipo",$dadosMatricula['Tipo']);
   $IstMaticula -> execute();
+}
+unset($_SESSION["FormularioInvalido"]);
+unset($dadosMatricula);
 ?>
 

@@ -9,7 +9,7 @@ error_reporting(0)
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/Loginstyle.css">
   <title>loginValid</title>
 </head>
 <body>
@@ -25,6 +25,13 @@ error_reporting(0)
             </div>
             <div class="senha breakline">
               <input type="password" name="password" class="bardisplay" id="password" placeholder="Insira a Senha" value="<?php echo $_COOKIE["senhaValida"]?>" required>
+            </div>
+            <div class="Opitions breakline">
+              <select name="TipoUsuario" id="TipoUsuario">
+                <option value="1">Administrador</option>
+                <option value="2">Professor</option>
+                <option value="3">Aluno</option>
+              </select>
             </div>
             <div class="breakline center">
               <div>
