@@ -15,7 +15,6 @@ if ($SQLMatricula -> execute()) {
   $AllMatricula = $SQLMatricula->fetchAll();
     if ($AllMatricula) {
       $cadastro = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-      var_dump($cadastro);
       // Valida cadastro
       if (isset($cadastro) && !empty($cadastro)) {
         // Verifica se possui informações vazias;
@@ -50,29 +49,29 @@ if ($SQLMatricula -> execute()) {
           $SqlUsuario->execute();
 
           // SELECIONA ULTIMO ID DA TABLEA USUARIO 
-          $CheckUsuario = "SELECT MAX(Usuario.id)  FROM Usuario";
-          $SqlIDUsuario = $conn -> prepare($CheckUsuario);
+          $CheckUsuario = "SELECT Usuario.id, Usuario.FK_Matricula FROM Usuario WHERE Usuario.FK_Matricula = :Matricula";
+          $SqlIDUsuario = $conn -> prepare($CheckUsuario); 
+          $SqlIDUsuario -> bindParam(":Matricula", $cadastro["Matricula"]);
           $SqlIDUsuario -> execute();
           $fetchUsuario = $SqlIDUsuario -> fetchAll();
-          var_dump($fetchUsuario);
-
+          // INSERIR NAS TABLES REFERENTES AO TIPO DE USUARIO
             switch ($cadastro["InsertTipoUser"]) {
               case '1':
                 $InsertAdmin = "INSERT INTO admin VALUES (0, :FK_Usuario)";
                 $SqlUserAdmin = $conn->prepare($InsertAdmin);
-                $SqlUserAdmin -> bindParam(":FK_Usuario", $fetchUsuario[0]['MAX(Usuario.id)']);
+                $SqlUserAdmin -> bindParam(":FK_Usuario", $fetchUsuario[0]['id']);
                 $SqlUserAdmin->execute();
               break;
               case '2':
                 $InsertProf = "INSERT INTO professor VALUES (0, :FK_Usuario)";
                 $SqlUserProf = $conn->prepare($InsertProf);
-                $SqlUserProf -> bindParam(":FK_Usuario", $fetchUsuario[0]['MAX(Usuario.id)']);
+                $SqlUserProf -> bindParam(":FK_Usuario", $fetchUsuario[0]['id']);
                 $SqlUserProf->execute();
                 break;
               case '3':
                 $InsertAluno = "INSERT INTO aluno(id,FK_Usuario) VALUES (0, :FK_Usuario)";
                 $SqlUserAluno = $conn->prepare($InsertAluno);
-                $SqlUserAluno -> bindParam(":FK_Usuario", $fetchUsuario[0]['MAX(Usuario.id)']);
+                $SqlUserAluno -> bindParam(":FK_Usuario", $fetchUsuario[0]['id']);
                 $SqlUserAluno->execute();
               break;
             }

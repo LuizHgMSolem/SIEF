@@ -60,7 +60,7 @@ include_once('conexao.php');
                 $fetchTipo = $returnTipo->fetchAll();
                 if ($fetchTipo) {
                 $_SESSION['tipoUsuario'] = 2;
-                header('Location: ../paginaPrincipal/professor.php');
+                header('Location: ../paginaPrincipal/Professor/professor.php');
                 }else {
                   echo "<h1 style='text-align:center;'>VOCÊ NÃO POSSUÍ ACESSO COMO PROFESSOR</h1>";
                   header('Location: ../login.php');
@@ -73,7 +73,7 @@ include_once('conexao.php');
                 $fetchTipo = $returnTipo->fetchAll();
                 if ($fetchTipo) {
                 $_SESSION['tipoUsuario'] = 3;
-                header('Location: ../paginaPrincipal/aluno.php');
+                header('Location: ../paginaPrincipal/Aluno/aluno.php');
                 }else {
                   echo "<h1 style='text-align:center;'>VOCÊ NÃO POSSUÍ ACESSO COMO ALUNO</h1>";
                   header('Location: ../login.php');

@@ -115,14 +115,12 @@ INSERT INTO `Diciplina` (`id`,`Nome_Diciplina`) VALUES (1, "Matematica");
 CREATE TABLE `Turma`
 (
   `id` INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL ,
-  `Nome_turma` varchar(100) NOT NULL,
-  `Ano` date NOT NULL,
-  `FK_Diciplina` INT,
-  FOREIGN KEY(`FK_Diciplina`) REFERENCES `Turma`(`id`)
+  `Nome_turma` varchar(100) NOT NULL UNIQUE,
+  `Ano` YEAR NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-INSERT INTO `Turma` (`id`,`Nome_turma`,`Ano`,`FK_Diciplina`) VALUES(1, '3B', '2023-01-01', 1);
+INSERT INTO `Turma` (`id`,`Nome_turma`,`Ano`) VALUES(1, '3B', '2023-01-01');
 
 
 -- --------------------------------------------------------
@@ -134,8 +132,8 @@ INSERT INTO `Turma` (`id`,`Nome_turma`,`Ano`,`FK_Diciplina`) VALUES(1, '3B', '20
 CREATE TABLE `turma_diciplina`
 (
   `id` INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `FK_Diciplina` INT,
-  `FK_Turma` INT,
+  `FK_Diciplina` INT NOT NULL,
+  `FK_Turma` INT NOT NULL,
   FOREIGN KEY(`FK_Diciplina`) REFERENCES `Diciplina`(`id`),
   FOREIGN KEY(`FK_Turma`) REFERENCES `Turma`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -147,21 +145,6 @@ INSERT INTO `turma_diciplina` VALUES(1, 1, 1);
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `Avaliação`
---
-
-CREATE TABLE `Avaliacao`
-(
-  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
-  `Notas` Numeric(2),
-  `FK_turma_diciplina` INT,
-  FOREIGN KEY(`FK_turma_diciplina`) REFERENCES `turma_diciplina`(`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `Avaliacao` VALUES (1, 10, 1);
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `Professor`
 --
 
@@ -169,11 +152,12 @@ CREATE TABLE `Professor`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT UNIQUE,
-  FOREIGN KEY
-(`FK_Usuario`) REFERENCES `usuario`(`id`)
+  `FK_turma_diciplina` INT UNIQUE,
+  FOREIGN KEY(`FK_Usuario`) REFERENCES `usuario`(`id`),
+  FOREIGN KEY(`FK_turma_diciplina`) REFERENCES `turma_diciplina`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Professor`(`id`,`FK_Usuario`) VALUES(1,1);
+INSERT INTO `Professor` VALUES(1,1,1);
 -- --------------------------------------------------------
 
 --
@@ -185,14 +169,12 @@ CREATE TABLE `Aluno`
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `Status` VARCHAR(11),
   `FK_Usuario` INT UNIQUE,
-  `FK_Avaliacao` INT,
-  `FK_turma_diciplina` INT,
+  `FK_turma_diciplina` INT UNIQUE,
   FOREIGN KEY(`FK_Usuario`) REFERENCES `usuario`(`id`),
-  FOREIGN KEY(`FK_Avaliacao`) REFERENCES `Avaliacao`(`id`),
   FOREIGN KEY(`FK_turma_diciplina`) REFERENCES `turma_diciplina`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Aluno` VALUES  (1, "Aprovado", 1, 1, 1);
+INSERT INTO `Aluno` VALUES  (1, "Aprovado", 1, 1);
 
 
 --
@@ -202,7 +184,7 @@ INSERT INTO `Aluno` VALUES  (1, "Aprovado", 1, 1, 1);
 CREATE TABLE `Calendario_aula`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
-  `Data` DATETIME NOT NULL,
+  `Data` DATE NOT NULL,
   `Nome_aula` VARCHAR(25) NOT NULL,
   `FK_Aluno` INT,
   `FK_turma_diciplina` INT,
@@ -213,12 +195,32 @@ CREATE TABLE `Calendario_aula`
 INSERT INTO `Calendario_aula` VALUES (1, '2023-06-07',"Aula Experimental", 1, 1);
 
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `Avaliação`
+--
+
+CREATE TABLE `Avaliacao`
+(
+  `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Notas` Numeric(2),
+  `FK_Aluno` INT,
+  `FK_Calendario_aula` INT,
+  FOREIGN KEY(`FK_Calendario_aula`) REFERENCES `Calendario_aula`(`id`),
+  FOREIGN KEY(`FK_Aluno`) REFERENCES `Aluno`(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `Avaliacao` VALUES (1, 10, 1, 1);
+
+-- --------------------------------------------------------
+
 --
 -- Estrutura da tabela `Calendario_aula`
 --
 
 CREATE TABLE `Aula_Aluno`
-(
+( 
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `Chamada` Boolean NOT NULL,
   `FK_Aluno` INT,
