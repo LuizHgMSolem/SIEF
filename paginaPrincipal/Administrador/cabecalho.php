@@ -4,7 +4,7 @@
         <li class="btn-cabecalho"><a href="../../login.php">Home</a></li>
         <li class="btn-cabecalho"><a href="admin.php">Matricula</a></li>
         <li class="btn-cabecalho"><a href="cadastro_usuario.php">Cadastrar Login</a></li>
-        <li class="btn-cabecalho"><a href="Turma_Diciplina.php">Gerenciar Turmas</a></li>
+        <li class="btn-cabecalho"><a href="Turma_diciplina/index.php">Gerenciar Turmas</a></li>
       </ul>
       <ul class="logout">
         <form action="admin.php" class="logout-form" method="post">

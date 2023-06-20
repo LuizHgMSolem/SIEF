@@ -47,11 +47,7 @@ CREATE TABLE `Matricula`
   `Tipo` int(1) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-<<<<<<< HEAD:validacao/sief.sql
-INSERT INTO `Matricula` VALUES  (1, 'Luiz Henrique Gomes Mendes','Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
-=======
 INSERT INTO `Matricula` VALUES (1, 'Luiz Henrique Gomes Mendes', 'Masculino', '49410706823', '595782693', '2003-04-09', 'Tatui-SP', 'Vila Esperança', 'Antônio Henrique da Silva', '984', '15996519988', 'luizmendesgomes@hotmail.com', 1);
->>>>>>> 0e6ffb5a1a620e1161bf1c5764af63ba0f482df6:bd/sief.sql
 -- --------------------------------------------------------
 
 --

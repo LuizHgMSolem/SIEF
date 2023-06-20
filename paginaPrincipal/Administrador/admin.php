@@ -117,25 +117,6 @@ ValidarRegistro();
 </html>
 
 <?php
-<<<<<<< HEAD:paginaPrincipal/admin.php
-  include_once('../validacao/conexao.php');
-  $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-  $NumEmpty = 0;
-  foreach ($dadosMatricula as $key => $value) {
-    $NumEmpty++;
-    $dadosVazios[$NumEmpty] = $dadosMatricula[$key];
-
-    if (empty($dadosVazios[$NumEmpty])){
-      $_SESSION["CamposVazios"] = $key . " Preechido Icorretamente";
-    }
-    echo ($_SESSION["CamposVazios"]). "<br>";
-    
-  }
-  // error_reporting(0);
-  if(empty($dadosMatricula)){
-      $msg = "Por favor preencha todos os items";
-      echo "<h3>".$msg."</h3>";
-=======
   include_once('../../validacao/conexao.php');
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   error_reporting(0);
@@ -148,7 +129,6 @@ ValidarRegistro();
   if($_SESSION["FormularioInvalido"]){
       $_SESSION['msg'] = "Por favor preencha todos os items";
       echo "<h3>".$_SESSION['msg']."</h3>";
->>>>>>> 0e6ffb5a1a620e1161bf1c5764af63ba0f482df6:paginaPrincipal/Administrador/admin.php
   }else {
   $SQLMatricula = "INSERT INTO Matricula VALUES(0, :Nome, :Sexo, :CPF, :RG, :DataNCT, :Cidade, :Bairro, :Endereco, :Numero, :Celular, :Email, :Tipo)";
   $IstMaticula = $conn -> prepare($SQLMatricula);

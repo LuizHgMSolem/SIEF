@@ -157,17 +157,19 @@ form{
   display: grid;
   grid-template-columns:200px 500px;
   margin-top: 1.5rem;
+}
 
+.diplayDiciplina{
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+}
+input{
+  max-width: 2rem;
 }
 
 .input-items label{
   white-space: nowrap;
-}
-
-.input-items input{
-  place-items: start;
-  width: 100%;
-  
 }
 
 .input-items small {
@@ -175,18 +177,6 @@ form{
   grid-area:1/2;
 }
 
-#rg-label, #cpf-label{
-  grid-area: 2/1;
-}
-
-.rg, .cpf{
-  margin-top: .5rem;
-}
-
-.input-items .txtCPF, .input-items .txtRG{
-  width: 100%;
-  grid-area:2/2;
-}
 .display{
 grid-area: 1/2; 
 }
@@ -202,31 +192,6 @@ grid-area: 1/2;
   place-items: center;
 }
 
-.matricular{
-  grid-area: 1/2;
-  width: 50%;
-}
-
-.desmarcar{
-  margin-top: 2rem;
-  grid-area: 2/2;
-}
-
 /*******************************
 TELA DE CADASTRO DO USUARIO
 *****************************/
-.UsuarioTipo{
-  max-width: fit-content;
-  grid-area: 1/2;
-}
-
-.SendTipo{
-  max-width: fit-content;
-  margin-top: 1rem;
-  grid-area: 2/2;
-}
-
-.cadastrar{
-  grid-area: 1/2;
-  padding-inline: 30%;
-}

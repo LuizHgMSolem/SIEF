@@ -40,21 +40,6 @@ include_once('conexao.php');
         // Passa o ID de USUARAIO que Logou na tela  
         $idTableUsuario =$fetchUser[0]['id'];         
           // Verifica Tipo De Usuário.
-<<<<<<< HEAD
-          switch ($fetchall[0]['Tipo']) {
-            case '1':
-              $_SESSION['tipoUsuario'] = 1;
-              header('Location: ../paginaPrincipal/admin.php');
-              break;
-            case '2':
-              $_SESSION['tipoUsuario'] = 2;
-              header('Location: ../paginaPrincipal/professor.php');
-              break;
-            case '3':
-              $_SESSION['tipoUsuario'] = 3;
-              header('Location: ../paginaPrincipal/aluno.php');
-              break;
-=======
             if ($PostInfo['TipoUsuario'] == 1){
               $SqlTipoUser = "SELECT Admin.FK_Usuario FROM Admin,Usuario WHERE Admin.FK_Usuario=$idTableUsuario";
               $returnTipo = $conn->prepare($SqlTipoUser);
@@ -67,7 +52,6 @@ include_once('conexao.php');
                   echo "<h1 style='text-align:center;'>VOCÊ NÃO POSSUÍ ACESSO COMO ADIMINISTRADOR</h1>";
                   header('Location: ../login.php');
                 }
->>>>>>> 0e6ffb5a1a620e1161bf1c5764af63ba0f482df6
             }
             if ($PostInfo['TipoUsuario'] == 2){
               $SqlTipoUser = "SELECT Professor.FK_Usuario FROM Professor,Usuario WHERE Professor.FK_Usuario=$idTableUsuario";
