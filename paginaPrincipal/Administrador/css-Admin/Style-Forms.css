@@ -63,15 +63,6 @@ nav .main-header-btn {
   height: min-content;
 }
 
-ul .btn-cabecalho{
-  display: block;
-  border: solid #7d7d7d;
-  width: 100%;
-  color: #fff;
-  background-color: rgb(97, 97, 112);
-  text-align: center;
-}
-
 ul .header-btn{
   display: grid;
   width: 100%;

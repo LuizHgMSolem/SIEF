@@ -3,7 +3,7 @@ session_start();
 // error_reporting(0);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-  header("Location: index.php");
+  header("Location: ../index.php");
   exit();
 };
 
@@ -47,10 +47,10 @@ include_once('conexao.php');
                 $fetchTipo = $returnTipo->fetchAll();
                 if ($fetchTipo) {
                 $_SESSION['tipoUsuario'] = 1;
-                header('Location: ../paginaPrincipal/Administrador/admin.php');
+                header('Location: /sief/paginaPrincipal/Administrador/Gestao_usuario/Matricula/admin.php');
                 }else{
                   echo "<h1 style='text-align:center;'>VOCÊ NÃO POSSUÍ ACESSO COMO ADIMINISTRADOR</h1>";
-                  header('Location: ../login.php');
+                  header('Location: /sief/login.php');
                 }
             }
             if ($PostInfo['TipoUsuario'] == 2){

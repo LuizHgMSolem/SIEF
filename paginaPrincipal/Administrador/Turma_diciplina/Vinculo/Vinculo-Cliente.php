@@ -13,7 +13,7 @@ function ValidarRegistro(){
 
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../../../../login.php');        
+    header('Location: /sief/login.php');        
   }
 }
 ValidarRegistro();
@@ -49,7 +49,7 @@ HTML START
   <title>Cadastar Usuario</title>  
 </head>
 <body>
-<?php include_once("../cabecalho.php");?>
+  <?php include_once("../../cabecalho/cabecalho-Turma.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -60,7 +60,7 @@ HTML START
         </div>
         <div class="Main-Forms">
           <div class="Forms-Container">
-            <form action="../../../../validacao/validarVinculo.php" method="post">
+            <form action="/sief/validacao/validarVincula.php" method="post">
                 <div class="input-items">
                   <label for="TurmaName">Adicionar Turma</label>
                   <select name="TurmaName" id="TurmaName">

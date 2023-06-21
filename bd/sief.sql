@@ -152,7 +152,7 @@ CREATE TABLE `Professor`
 (
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `FK_Usuario` INT UNIQUE,
-  `FK_turma_diciplina` INT UNIQUE,
+  `FK_turma_diciplina` INT,
   FOREIGN KEY(`FK_Usuario`) REFERENCES `usuario`(`id`),
   FOREIGN KEY(`FK_turma_diciplina`) REFERENCES `turma_diciplina`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -169,7 +169,7 @@ CREATE TABLE `Aluno`
   `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL ,
   `Status` VARCHAR(11),
   `FK_Usuario` INT UNIQUE,
-  `FK_turma_diciplina` INT UNIQUE,
+  `FK_turma_diciplina` INT,
   FOREIGN KEY(`FK_Usuario`) REFERENCES `usuario`(`id`),
   FOREIGN KEY(`FK_turma_diciplina`) REFERENCES `turma_diciplina`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

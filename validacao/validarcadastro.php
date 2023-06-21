@@ -29,7 +29,7 @@ if ($SQLMatricula -> execute()) {
         // Se possuir informações vazias retornar para cadastro;
         if ($_SESSION['CadastroInvalido']) {
           $_SESSION["Administrador"] = true;
-          header("Location: ../paginaPrincipal/Administrador/cadastro_usuario.php");
+          header("Location: ../paginaPrincipal/Administrador/Gestao_usuario/Matricula/cadastro_usuario.php");
         }else {
           foreach ($AllMatricula as $key => $value) {
             $idmatricula = $value[0][0];
@@ -79,7 +79,7 @@ if ($SQLMatricula -> execute()) {
           
             echo "<h1>Cadastro concluido</h1>";
           }else{
-            header("Location: ../paginaPrincipal/Administrador/cadastro_usuario.php");
+            header("Location: ../paginaPrincipal/Administrador/Gestao_usuario/Matricula/cadastro_usuario.php");
           }
         }
       }

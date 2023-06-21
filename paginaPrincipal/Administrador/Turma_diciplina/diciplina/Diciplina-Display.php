@@ -13,7 +13,7 @@ function ValidarRegistro(){
 
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../../../login.php');        
+    header('Location: /sief/login.php');             
   }
 }
 ValidarRegistro();
@@ -39,16 +39,17 @@ HTML START
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="../../css-Admin/Style-Display.css">
-  <title>Cadastar Usuario</title>  
+  <title>Listagem Usuario</title>  
 </head>
 <body>
-<?php include_once("../cabecalho.php");?>
+<?php include_once("../../cabecalho/cabecalho-Turma.php");?>
+
   <main>
     <section class="Main-Section">
       <div class="main-container">
         <div class="Main-Title">
           <div class="Title-Container">
-            <h1 title="Matricula" >Cadastro de Diciplina</h1>
+            <h1 title="Matricula" >Listagem de Diciplina</h1>
           </div>
         </div>
         <div class="Main-Forms">

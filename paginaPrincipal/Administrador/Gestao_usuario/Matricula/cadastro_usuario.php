@@ -10,12 +10,12 @@ function ValidarRegistro(){
 
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../../login.php');        
+    header('Location: /sief/login.php');           
   }
 }
 ValidarRegistro();
 
-  include_once('../../validacao/conexao.php');
+  include_once('../../../../validacao/conexao.php');
   $userMTR = "SELECT Matricula.id, Matricula.Nome, Matricula.CPF, Matricula.Tipo  FROM Matricula WHERE Matricula.Tipo = :Tipo";
   $sqlUserMTR = $conn->prepare($userMTR);
   $sqlUserMTR -> bindParam(":Tipo", $_POST["Tipo"]);
@@ -36,11 +36,11 @@ ValidarRegistro();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../css/Style-Forms.css">
+  <link rel="stylesheet" href="../../css-Admin/Style-Forms.css">
   <title>Cadastar Usuario</title>  
 </head>
 <body>
-<?php include_once("cabecalho.php");?>
+  <?php include_once("../../cabecalho/cabecalho-main.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -71,7 +71,7 @@ ValidarRegistro();
                       <input type="submit" class="btn btn-secondary SendTipo" value="Pesquisar Usuário">
                   </div>
             </form>
-            <form action="../../validacao/validarcadastro.php" method="post">
+            <form action="/sief/validacao/validarcadastro.php" method="post">
               <div class="form-inputs">
                 <div class="input-items">
                   <label for="UsuarioName">Selecionar Usuario</label>

@@ -13,7 +13,6 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-
 html{
   font-size: 62.5%;
 
@@ -21,6 +20,14 @@ html{
 
 ul {
   list-style: none;
+}
+
+* li {
+  list-style: none;
+}
+
+* a{
+  text-decoration: none;
 }
 
 h3{
@@ -89,12 +96,12 @@ ul .btn-cabecalho{
   text-align: center;
 }
 
-* a{
-  text-decoration: none;
+nav a{
   color: #fff;
 }
 
-* a:hover{
+
+nav a:hover{
   color: #f8f8;
 }
 
@@ -158,6 +165,10 @@ main{
   gap: 2rem;
 }
 
+.Forms-Container a{
+  color: #000;
+}
+
 form{
   display: grid;
   max-width: 100rem;
@@ -199,7 +210,7 @@ hr{
   grid-area:  1 / 1;
 }
   
-.diplay-Diciplina{
+.diplay-info{
   display: flex;
   flex: 1;
   gap: 1rem;
@@ -223,11 +234,13 @@ hr{
 }
 
 .btn-edicoes{
-  border: solid .2rem;
+  border: solid .1rem;
+  padding: .2rem;
+
 }
 
 .btn-edicoes a{
-  color: #222;  
+  color: #000;  
 }
 .txtDataNCT{
   width: 20rem;

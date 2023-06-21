@@ -13,7 +13,7 @@ function ValidarRegistro(){
 
   // Validação do Registro.
   if (!$_SESSION['tipoUsuario'] == 1){
-    header('Location: ../../login.php');        
+    header('Location: /sief/login.php');        
   }
 }
 ValidarRegistro();
@@ -29,11 +29,11 @@ ValidarRegistro();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../css/Style-Forms.css">
+  <link rel="stylesheet" href="../../css-Admin/Style-Forms.css">
   <title>Área de Matricula</title>
 </head>
 <body>
-  <?php include_once("cabecalho.php");?>
+  <?php include_once("../../cabecalho/cabecalho-main.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
@@ -117,7 +117,7 @@ ValidarRegistro();
 </html>
 
 <?php
-  include_once('../../validacao/conexao.php');
+    include_once('../../../../validacao/conexao.php');
   $dadosMatricula = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   error_reporting(0);
    foreach ($dadosMatricula as $key => $value) {
