@@ -56,23 +56,6 @@ nav{
   height: 80%;
 }
 
-nav ul {
-  display: grid;
-  place-items: center;
-  gap: 1rem;
-  height: min-content;
-}
-
-nav li{
-  display: block;
-  border: solid #7d7d7d;
-  width: 100%;
-  color: #fff;
-  background-color: rgb(97, 97, 112);
-  text-align: center;
-}
-
-
 nav .main-header-btn {
   display: grid;
   place-items: center;
@@ -105,6 +88,7 @@ ul .btn-cabecalho{
   background-color: rgb(97, 97, 112);
   text-align: center;
 }
+
 * a{
   text-decoration: none;
   color: #fff;
@@ -133,7 +117,6 @@ ul .btn-cabecalho{
 /*******************
 START MAIN CONTENT
 *******************/
-
 main{
   display: grid;
   grid-area: 1/2;
@@ -143,7 +126,7 @@ main{
 
 .main-container{
   display: grid;
-  grid-template-columns: minmax(30rem, 120rem);
+  grid-template-columns: minmax(30rem , 120rem);
   place-content: center;
   gap: 2.4rem;
   font-size: 1.6rem;
@@ -153,12 +136,11 @@ main{
   display: grid;
   max-width: 100rem;
   place-content: center;
-  grid-template-columns:200px 500px;
+  grid-template-columns: 500px;
   
 }
 
 .Title-Container{  
-  grid-area: 1/2;
   place-self: center;
 }
 
@@ -169,32 +151,42 @@ main{
 .Main-Forms{
   margin-bottom:5rem;
 }
-form{
+.Forms-Container{
   display: grid;
   max-width: 100rem;
   place-content: center;
   gap: 2rem;
 }
 
+form{
+  display: grid;
+  max-width: 100rem;
+  place-content: center;
+  gap: 2rem;
+}
+hr{
+  border: solid 1px;
+}
 .form-inputs{
   display: grid;
+  border: solid;
 }
 
 .input-items{
   display: grid;
-  grid-template-columns:200px 500px;
-  margin-top: 1.5rem;
-
+  grid-template-columns:1fr 500px 1fr;
+  grid-auto-rows: auto;
+  align-items: center;
+  padding-block: .1rem;
+  gap: .2rem;
+  border-bottom: solid .1rem;
 }
+/***********
+  INPUTS
+***********/
 
 .input-items label{
   white-space: nowrap;
-}
-
-.input-items input{
-  place-items: start;
-  width: 100%;
-  
 }
 
 .input-items small {
@@ -202,19 +194,41 @@ form{
   grid-area:1/2;
 }
 
-#rg-label, #cpf-label{
-  grid-area: 2/1;
+
+.display-id{
+  grid-area:  1 / 1;
+}
+  
+.diplay-Diciplina{
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  grid-area: 1 / 2;
+  border-inline:solid .1rem ;
 }
 
-.rg, .cpf{
-  margin-top: .5rem;
+.display-Interacao{
+  grid-area:  1 / 3;
+  }
+
+/**************
+    BOTÕES
+***************/
+
+.campo-edicoes{
+  margin: 0;
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
 }
 
-.input-items .txtCPF, .input-items .txtRG{
-  width: 100%;
-  grid-area:2/2;
+.btn-edicoes{
+  border: solid .2rem;
 }
 
+.btn-edicoes a{
+  color: #222;  
+}
 .txtDataNCT{
   width: 20rem;
 }
@@ -224,33 +238,4 @@ form{
   grid-template-columns: 200px 500px;
   grid-template-rows: 1fr 1fr;
   place-items: center;
-}
-
-.matricular{
-  grid-area: 1/2;
-  width: 50%;
-}
-
-.desmarcar{
-  margin-top: 2rem;
-  grid-area: 2/2;
-}
-
-/*******************************
-TELA DE CADASTRO DO USUARIO
-*****************************/
-.UsuarioTipo{
-  max-width: fit-content;
-  grid-area: 1/2;
-}
-
-.SendTipo{
-  max-width: fit-content;
-  margin-top: 1rem;
-  grid-area: 2/2;
-}
-
-.cadastrar{
-  grid-area: 1/2;
-  padding-inline: 30%;
 }
