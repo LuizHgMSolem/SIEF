@@ -35,7 +35,7 @@ HTML START
   <title>Cadastar Usuario</title>  
 </head>
 <body>
-  <?php include_once("../../cabecalho/cabecalho-Turma.php");?>
+  <?php include_once("../../cabecalho/cabecalho-main.php");?>
   <main>
     <section class="Main-Section">
       <div class="main-container">
